@@ -6,12 +6,13 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        # Core dependencies
+        # Core dependencies (cross-platform)
         "pillow",  # For image processing
-        "mss",  # For screen capture
-        "pynput",  # For mouse/keyboard monitoring
-        "shapely",  # For geometry operations
-        "pyobjc-framework-Quartz",  # For macOS window management
+        # --- macOS screen/input stack (unused on Linux/Wayland) ---
+        "mss; sys_platform == 'darwin'",  # Screen capture (X11-only elsewhere)
+        "pynput; sys_platform == 'darwin'",  # Mouse/keyboard (X11-only elsewhere)
+        "shapely; sys_platform == 'darwin'",  # Geometry for window occlusion
+        "pyobjc-framework-Quartz; sys_platform == 'darwin'",  # macOS windows
         "openai>=1.0.0",
         "SQLAlchemy>=2.0.0",
         "pydantic>=2.0.0",
@@ -31,6 +32,18 @@ setup(
     extras_require={
         'monitoring': [
             'psutil',  # For memory monitoring
+        ],
+        # Linux/Wayland screen + input backends.  These wrap system libraries
+        # (PipeWire, GLib, libxkbcommon), so installing the matching distro
+        # packages and creating the venv with --system-site-packages is more
+        # reliable than building them from source.  On Fedora:
+        #   sudo dnf install python3-gobject python3-evdev python3-xkbcommon \
+        #       gstreamer1-plugin-pipewire
+        #   sudo usermod -aG input $USER   # then log out and back in
+        'linux': [
+            "PyGObject; sys_platform == 'linux'",   # GLib/Gio/Gst bindings
+            "evdev; sys_platform == 'linux'",       # Raw input devices
+            "xkbcommon; sys_platform == 'linux'",   # Keycode -> character
         ],
     },
     entry_points={

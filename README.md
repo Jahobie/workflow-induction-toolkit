@@ -26,12 +26,18 @@ Find workflow step descriptions in `${DATA_DIR}/workflow.txt` and detailed data 
 
 ## ① Installation
 ```bash
-git clone https://github.com/zorazrw/workflow-induction-toolkit
+git clone https://github.com/Jahobie/workflow-induction-toolkit.git
 cd workflow-induction-toolkit
 export OPENAI_API_KEY=${YOUR_API_KEY}
 ```
 
 ## ② Record Human Computer-Use Activities
+
+This fork also supports **Fedora/GNOME Wayland** recording. See the
+[recorder README](computer-recorder/README.md) for Linux installation, the
+included GNOME extension, output-directory selection, scroll screenshot
+throttling, terminal/tmux protection, and known recording limitations.
+The workflow-induction implementation is unchanged.
 
 Install the recording tool:
 ```bash

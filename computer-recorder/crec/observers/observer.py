@@ -41,14 +41,16 @@ class Observer(ABC):
         except asyncio.QueueEmpty:
             return None
 
+    async def wait(self) -> None:
+        """Wait until acquisition stops or fails."""
+        if self._task is not None:
+            await self._task
+
     async def stop(self) -> None:
-        """Cancel the worker task and drain the queue."""
+        """Stop producing updates; the recorder owns persistence of queued updates."""
         if self._task and not self._task.done():
             self._task.cancel()
             try:
                 await self._task
             except asyncio.CancelledError:
                 pass
-        # unblock any awaiters
-        while not self.update_queue.empty():
-            self.update_queue.get_nowait()

@@ -2,3 +2,21 @@
 **/*.egg-info
 **/.DS_Store
 **/.vscode/
+**/AGENTS.md
+**/.env
+
+# Environments, recordings, and temporary capture frames.
+.venv/
+venv/
+records/
+screenshots/
+actions.db*
+.crec-frames-*/
+
+# Local agent worktrees and review artifacts.
+.claude/
+.adversarial-review/
+/claude_review_loop.sh
+/count_output.txt
+/computer-recorder/LINUX_RECORDER_CONTEXT.md
+/computer-recorder/LINUX_RECORDER_CODE_WALKTHROUGH.md

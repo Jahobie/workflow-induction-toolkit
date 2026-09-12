@@ -1,1 +1,2 @@
-graft crec/prompts/crec 
+graft crec/prompts/crec
+recursive-include crec/linux/gnome-shell-extension *.js *.json

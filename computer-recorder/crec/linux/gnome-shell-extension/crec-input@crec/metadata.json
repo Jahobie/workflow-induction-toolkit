@@ -1,0 +1,7 @@
+{
+  "uuid": "crec-input@crec",
+  "name": "crec input bridge",
+  "description": "Exposes pointer position, monitor layout and input events over D-Bus for the crec activity recorder. Only active while enabled; nothing is stored.",
+  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "url": "https://github.com/zorazrw/workflow-induction-toolkit"
+}
